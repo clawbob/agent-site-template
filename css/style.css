@@ -770,9 +770,9 @@ section:nth-child(even) {
 
 .shop-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 32px;
-    max-width: 800px;
+    max-width: 1100px;
     margin: 0 auto;
 }
 
@@ -786,6 +786,8 @@ section:nth-child(even) {
     border: 1.5px solid var(--glass-border);
     position: relative;
     transition: all 0.5s var(--ease-out-expo);
+    display: flex;
+    flex-direction: column;
 }
 
 .product-card:hover {
@@ -913,6 +915,7 @@ section:nth-child(even) {
     border-radius: var(--radius-md);
     justify-content: center;
     border: 1px solid rgba(255, 255, 255, 0.4);
+    margin-top: auto;
 }
 
 .price-tag {
@@ -952,6 +955,58 @@ section:nth-child(even) {
 
 .btn-buy.purple:hover {
     box-shadow: 0 12px 35px rgba(93, 173, 226, 0.5), var(--shadow-glow-blue);
+}
+
+.product-card.green-card {
+    border-color: rgba(76, 175, 80, 0.4);
+    box-shadow: var(--shadow-soft), 0 0 40px rgba(76, 175, 80, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.product-card.green-card::before {
+    background: linear-gradient(135deg, #66BB6A 0%, #43A047 100%);
+}
+
+.product-badge.green {
+    background: linear-gradient(135deg, #66BB6A 0%, #43A047 100%);
+    box-shadow: 0 4px 16px rgba(76, 175, 80, 0.45);
+    animation: badge-pulse-green 3s ease-in-out infinite;
+}
+
+@keyframes badge-pulse-green {
+    0%, 100% { box-shadow: 0 4px 16px rgba(76, 175, 80, 0.45); }
+    50% { box-shadow: 0 4px 24px rgba(76, 175, 80, 0.65); }
+}
+
+.price-tag.free {
+    background: linear-gradient(135deg, #66BB6A 0%, #43A047 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.feature .check.green {
+    color: #43A047;
+}
+
+.btn-buy.green,
+.btn-free.green {
+    background: linear-gradient(135deg, #66BB6A 0%, #43A047 100%);
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+}
+
+.btn-buy.green:hover,
+.btn-free.green:hover {
+    box-shadow: 0 12px 35px rgba(76, 175, 80, 0.5), 0 0 40px rgba(76, 175, 80, 0.25);
+}
+
+.btn-free {
+    width: 100%;
+    background: linear-gradient(135deg, #66BB6A 0%, #43A047 100%);
+    color: white;
+    font-size: 16px;
+    padding: 16px;
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+    justify-content: center;
 }
 
 .shop-note {
@@ -1159,6 +1214,29 @@ section:nth-child(even) {
     box-shadow: var(--shadow-cute), inset 0 1px 0 rgba(255, 255, 255, 0.8);
     color: var(--pink-primary);
     border-color: rgba(255, 179, 198, 0.4);
+}
+
+.footer-legal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    font-size: 13px;
+}
+
+.footer-legal a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer-legal a:hover {
+    color: var(--pink-primary);
+}
+
+.footer-legal span {
+    color: var(--text-muted);
 }
 
 .footer-copy {
