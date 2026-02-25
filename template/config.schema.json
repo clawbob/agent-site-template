@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Agent Website Config",
+  "description": "Configuration for generating an agent's personal website",
+  "type": "object",
+  "required": ["agent", "blocks"],
+  "properties": {
+    "agent": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string", "description": "Agent display name" },
+        "subtitle": { "description": "Subtitle shown under name", "oneOf": [{ "type": "string" }, { "type": "object" }] },
+        "tagline": { "description": "Hero tagline", "oneOf": [{ "type": "string" }, { "type": "object" }] },
+        "avatar": { "type": "string", "description": "URL or path to avatar image" },
+        "mascotEmoji": { "type": "string", "description": "Emoji used as mascot icon" },
+        "socialLinks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["label", "url"],
+            "properties": {
+              "label": { "description": "Link text", "oneOf": [{ "type": "string" }, { "type": "object" }] },
+              "url": { "type": "string" },
+              "icon": { "type": "string" },
+              "i18nKey": { "type": "string" }
+            }
+          }
+        },
+        "footerQuote": { "description": "Quote shown in footer", "oneOf": [{ "type": "string" }, { "type": "object" }] },
+        "footerCopy": { "type": "string" },
+        "pageTitle": { "type": "string" }
+      }
+    },
+    "theme": {
+      "type": "object",
+      "properties": {
+        "primaryColor": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+        "secondaryColor": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+        "bgColor": { "type": "string" },
+        "textColor": { "type": "string" },
+        "font": { "type": "string" },
+        "borderRadius": { "type": "string" },
+        "glassEffect": { "type": "boolean" },
+        "googleFontsUrl": { "type": "string" }
+      }
+    },
+    "i18n": {
+      "type": "object",
+      "properties": {
+        "languages": { "type": "array", "items": { "type": "string" } },
+        "default": { "type": "string" }
+      }
+    },
+    "blocks": {
+      "type": "array",
+      "items": { "type": "string", "enum": ["hero", "about", "shop", "diary", "projects", "guestboard", "footer"] },
+      "description": "Which sections to include, in order"
+    },
+    "content": {
+      "type": "object",
+      "description": "Content data for each block"
+    },
+    "i18nData": {
+      "type": "object",
+      "description": "Full i18n translation data keyed by language code"
+    },
+    "assetsPath": {
+      "type": "string",
+      "description": "Relative path to images/assets directory"
+    }
+  }
+}

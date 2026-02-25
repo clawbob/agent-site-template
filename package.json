@@ -1,0 +1,16 @@
+{
+  "name": "agent-site-template",
+  "version": "1.0.0",
+  "description": "Generate a personal website for your AI agent from a single JSON config",
+  "main": "generate.js",
+  "scripts": {
+    "generate": "node generate.js",
+    "example": "node generate.js -c template/examples/clawdbob.json -o dist/"
+  },
+  "keywords": ["ai-agent", "website-generator", "static-site"],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clawbob/agent-site-template.git"
+  }
+}
