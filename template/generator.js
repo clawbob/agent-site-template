@@ -432,6 +432,7 @@ function generateShopJS(productsObj, defaultLang) {
             const lang = localStorage.getItem('preferred-lang') || '${defaultLang}';
 
             if (product) {
+                const t = i18n[lang] || i18n['en'];
                 checkoutDetails.innerHTML = \`
                     <div class="checkout-product-info">
                         <h4 style="font-size: 18px; font-weight: 700; margin-bottom: 8px; color: var(--text-primary);">
@@ -448,7 +449,7 @@ function generateShopJS(productsObj, defaultLang) {
                         </div>
                         <div style="margin-top: 16px;">
                             <label style="display: block; font-size: 13px; color: var(--text-secondary); margin-bottom: 8px; font-weight: 600;">
-                                📧 Email
+                                \${t.checkout_email_label || '📧 Email'}
                             </label>
                             <input type="email" id="customer-email" placeholder="your@email.com"
                                 style="width: 100%; padding: 12px 16px; border: 2px solid var(--pink-light); border-radius: var(--radius-sm); font-size: 15px; font-family: inherit; outline: none;"
@@ -456,11 +457,12 @@ function generateShopJS(productsObj, defaultLang) {
                         </div>
                         <div style="margin-top: 12px;">
                             <label style="display: block; font-size: 13px; color: var(--text-secondary); margin-bottom: 8px; font-weight: 600;">
-                                🐙 GitHub (optional)
+                                \${t.checkout_github_label || '🐙 GitHub (optional)'}
                             </label>
                             <input type="text" id="customer-github" placeholder="username"
                                 style="width: 100%; padding: 12px 16px; border: 2px solid var(--blue-light); border-radius: var(--radius-sm); font-size: 15px; font-family: inherit; outline: none;"
                             >
+                            <p style="font-size: 11px; color: #999; margin-top: 4px;">\${t.checkout_github_hint || ''}</p>
                         </div>
                     </div>
                 \`;
@@ -492,13 +494,14 @@ function generateShopJS(productsObj, defaultLang) {
         const github_username = githubInput ? githubInput.value.trim() : '';
         const lang = localStorage.getItem('preferred-lang') || '${defaultLang}';
 
+        const ct = i18n[lang] || i18n['en'];
         if (!email || !email.includes('@')) {
-            alert('Please enter a valid email address');
+            alert(ct.email_invalid || 'Please enter a valid email address');
             return;
         }
 
         checkoutBtn.disabled = true;
-        checkoutBtn.innerHTML = '🔄 Processing...';
+        checkoutBtn.innerHTML = ct.processing || '🔄 Processing...';
 
         try {
             const response = await fetch('/api/checkout', {
@@ -515,16 +518,18 @@ function generateShopJS(productsObj, defaultLang) {
             }
         } catch (error) {
             console.error('Checkout error:', error);
-            alert('Payment failed, please try again');
+            alert(ct.payment_failed || 'Payment failed, please try again');
             checkoutBtn.disabled = false;
-            checkoutBtn.innerHTML = '💳 Pay Now';
+            checkoutBtn.innerHTML = ct.pay_now || '💳 Pay Now';
         }
     });
 
     // URL Params (Success/Cancel)
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('canceled')) {
-        alert('Payment canceled.');
+        const cancelLang = localStorage.getItem('preferred-lang') || '${defaultLang}';
+        const cancelT = i18n[cancelLang] || i18n['en'];
+        alert(cancelT.payment_canceled || 'Payment canceled.');
         window.history.replaceState({}, document.title, '/');
     }`;
 }
@@ -644,7 +649,7 @@ function generateGuestboardJS(config) {
         const text = textInput.value.trim();
         if (!text) { textInput.focus(); return; }
         pendingMessage = {
-            nickname: nicknameInput.value.trim() || 'Anonymous',
+            nickname: nicknameInput.value.trim() || ((i18n[localStorage.getItem('preferred-lang') || '${defaultLang}'] || {}).guestboard_anon || 'Anonymous'),
             content: text
         };
         formMsg.classList.remove('active');

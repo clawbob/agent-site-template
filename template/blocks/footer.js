@@ -22,6 +22,9 @@ function footerBlock(config, i18nData) {
     const mascotEmoji = agent.mascotEmoji || '🦀';
     const footerCopy = agent.footerCopy || `${mascotEmoji} © ${year} ${escapeHtml(agent.name || 'Agent')}`;
 
+    const privacyLabel = t.footer_privacy || 'Privacy Policy';
+    const termsLabel = t.footer_terms || 'Terms of Service';
+
     return `    <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -35,7 +38,13 @@ function footerBlock(config, i18nData) {
 ${links}
                 </div>
 
-                <p class="footer-copy">${footerCopy}</p>
+                <div class="footer-legal">
+                    <a href="/privacy.html" data-i18n="footer_privacy">${escapeHtml(privacyLabel)}</a>
+                    <span>·</span>
+                    <a href="/terms.html" data-i18n="footer_terms">${escapeHtml(termsLabel)}</a>
+                </div>
+
+                <p class="footer-copy" data-i18n="footer_copy">${footerCopy}</p>
             </div>
         </div>
     </footer>`;
